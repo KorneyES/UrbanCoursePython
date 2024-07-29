@@ -14,9 +14,10 @@ def single_root_words(root_word, *other_words):
     same_words = []
     for word in other_words:
         word_l = word.lower()
-        if root_word_l in word_l:
+        if root_word_l in word_l or word_l in root_word_l:
             same_words.append(word)
     return same_words
 
 print(single_root_words('VoZ','A VOZ i nine tam', 'govnoVoz, mnogo v mire tuplanov i roZ', 'poVozka', 'Lenin - Vozhd'))
 print(single_root_words('TON','Tons', 'Tetramagaton', 'TOnometer', 'Sabaton', 'PrOtoN'))
+print(single_root_words('Disablement', 'Able', 'Mable', 'Disable', 'Bagel'))
