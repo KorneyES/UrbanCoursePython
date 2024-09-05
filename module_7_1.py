@@ -39,8 +39,7 @@ class Shop():
                     print(f'Продукт {product.name}, {product.weight}, {product.category} уже существует')
                 else:
                     file2.write(str(product) + '\n')
-                    #existing_names.add(product.name)
-                    file2.close()
+
 s1 = Shop()
 p1 = Product('Potato', 50.5, 'Vegetables')
 p2 = Product('Spaghetti', 3.4, 'Groceries')
