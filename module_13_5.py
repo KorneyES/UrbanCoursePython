@@ -6,7 +6,7 @@ from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 import asyncio
 
-api = '7424899623:AAEKTtC5JoVx4eDhk6HT0NhlFWDQ7x9XWl4'
+api = 'key'
 bot = Bot(token=api)
 dp = Dispatcher(bot, storage=MemoryStorage())
 

@@ -5,7 +5,7 @@ import asyncio
 # Задача "Бот поддержки (Начало)":
 # К коду из подготовительного видео напишите две асинхронные функции:
 
-api = '7424899623:AAEKTtC5JoVx4eDhk6HT0NhlFWDQ7x9XWl4'
+api = 'key'
 bot = Bot(token=api)
 dp = Dispatcher(bot, storage=MemoryStorage())
 
