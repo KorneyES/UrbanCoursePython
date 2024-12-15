@@ -5,7 +5,7 @@ from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton
 from crud_functions import initiate_db, get_all_products, add_user, is_included
 
-api = '7424899623:AAEKTtC5JoVx4eDhk6HT0NhlFWDQ7x9XWl4'
+api = 'key'
 bot = Bot(token=api)
 dp = Dispatcher(bot, storage=MemoryStorage())
 
