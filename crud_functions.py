@@ -1,16 +1,9 @@
-# Создайте файл crud_functions.py и напишите там следующие функции:
-
 import sqlite3
 
 def initiate_db():
     conn = sqlite3.connect('products.db')
     cursor = conn.cursor()
 
-# initiate_db, которая создаёт таблицу Products, если она ещё не создана при помощи SQL запроса. Эта таблица должна содержать следующие поля:
-# id - целое число, первичный ключ
-# title(название продукта) - текст (не пустой)
-# description(описание) - текст
-# price(цена) - целое число (не пустой)
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS Products (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -20,20 +13,18 @@ def initiate_db():
         )
     ''')
 
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS Users (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            username TEXT NOT NULL,
+            email TEXT NOT NULL,
+            age INTEGER NOT NULL,
+            balance INTEGER NOT NULL DEFAULT 1000
+        )
+    ''')
+
     conn.commit()
     conn.close()
-
-# get_all_products, которая возвращает все записи из таблицы Products, полученные при помощи SQL запроса.
-def get_all_products():
-    conn = sqlite3.connect('products.db')
-    cursor = conn.cursor()
-
-    # Получение всех записей из таблицы Products
-    cursor.execute('SELECT title, description, price FROM Products')
-    products = cursor.fetchall()
-
-    conn.close()
-    return products
 
 def populate_db():
     products = [
@@ -46,15 +37,48 @@ def populate_db():
     conn = sqlite3.connect('products.db')
     cursor = conn.cursor()
 
-    cursor.executemany('''
-        INSERT INTO Products (title, description, price) VALUES (?, ?, ?)
-    ''', products)
+    cursor.execute('SELECT COUNT(*) FROM Products')
+    count = cursor.fetchone()[0]
+
+    if count == 0:
+        cursor.executemany('''
+            INSERT INTO Products (title, description, price) VALUES (?, ?, ?)
+        ''', products)
 
     conn.commit()
     conn.close()
 
-populate_db()
+def get_all_products():
+    conn = sqlite3.connect('products.db')
+    cursor = conn.cursor()
 
+    cursor.execute('SELECT title, description, price FROM Products')
+    products = cursor.fetchall()
 
+    conn.close()
+    return products
 
+def add_user(username, email, age):
+    conn = sqlite3.connect('products.db')
+    cursor = conn.cursor()
 
+    cursor.execute('''
+        INSERT INTO Users (username, email, age, balance) VALUES (?, ?, ?, ?)
+    ''', (username, email, age, 1000))
+
+    conn.commit()
+    conn.close()
+
+def is_included(username):
+    conn = sqlite3.connect('products.db')
+    cursor = conn.cursor()
+
+    cursor.execute('SELECT * FROM Users WHERE username = ?', (username,))
+    user = cursor.fetchone()
+
+    conn.close()
+    return user is not None
+
+if __name__ == "__main__":
+    initiate_db()
+    populate_db()
